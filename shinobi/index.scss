@@ -1,0 +1,23 @@
+/* the order of the imports is important, the variables inside the base.scss file that are created from the variables.scss file will not be available in the base.scss file if the order is changed
+*/
+
+// variables & functions
+@import 'functions';
+@import 'variables';
+
+// base & layout
+@import 'base';
+@import 'breakpoints';
+@import 'grid';
+
+// colors
+@import 'colors';
+
+// components (button, card, navbar)
+@import 'components/card';
+@import 'components/button';
+@import 'components/navbar';
+@import 'components/badge';
+
+// utilities (margin, padding, opacity)
+@import 'utilities';

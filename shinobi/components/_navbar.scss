@@ -1,0 +1,32 @@
+// if we use the . when scss compile it will create a class in css which we don't need, if we don't need the definition in the output css, chage the . by the place holder %
+%flex-layout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.navbar {
+    // when using extend, we don't pass arguments, if we want to pass arguments we use mixin
+    // the extends is compiled diferently than the mixin, the extends is compiled to the class that we are extending, the mixin is compiled to the class that we are calling the mixin
+    @extend %flex-layout;
+    padding: $base-padding $base-padding * 2;
+    box-shadow: $base-box-shadow;
+
+    .site-title {
+        font-size: $font-size-lg;
+
+    }
+
+    .container {
+        @extend %flex-layout;
+    }
+}
+
+@each $key, $val in $colors {
+    .navbar-#{$key} {
+        @extend .navbar;
+        background-color: $val;
+    }
+}

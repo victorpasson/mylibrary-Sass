@@ -1,0 +1,78 @@
+@use "sass:math";
+
+$grid-columns: 12;
+
+$grid-gaps: (
+    "0": 0,
+    "1": 10px,
+    "2": 20px,
+    "3": 30px,
+    "4": 40px,
+    "5": 50px,
+);
+
+// list values in sass
+$layout-values: flex-start, flex-end, center, space-between, space-around, stretch;
+
+// base layout classes
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+// grid gap classes
+// > * apply the grid gap in all the flex itens direct children of the element
+@each $key, $value in $grid-gaps {
+    .gap-#{$key}>* {
+        padding: $value;
+    }
+
+    .gap-#{$key} {
+        margin-left: -$value;
+        margin-right: -$value;
+    }
+}
+
+// justify-content classes
+@each $value in $layout-values {
+    .justify-#{$value} {
+        justify-content: $value;
+    }
+}
+
+// col classes
+// .col-xs-12 .col-md-6
+@each $breakpoint, $value in $breakpoints {
+    @include breakpoint($value) {
+
+        // col-xs-1, col-xs-2, col-xs-3, etc.
+        @for $i from 1 through $grid-columns {
+            .col-#{$breakpoint}-#{$i} {
+                box-sizing: border-box;
+                flex: 0 0 math.div(100% * $i, $grid-columns);
+                max-width: math.div(100% * $i, $grid-columns);
+            }
+        }
+    }
+}
+
+
+//@include xs {
+//
+// col-xs-1, col-xs-2, col-xs-3, etc.
+//    @for $i from 1 through $grid-columns {
+//        .col-xs-#{$i} {
+//            box-sizing: border-box;
+//            flex: 0 0 math.div(100% * $i, $grid-columns);
+//            max-width: math.div(100% * $i, $grid-columns);
+//        }
+//    }
+//}
